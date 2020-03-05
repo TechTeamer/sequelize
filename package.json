@@ -87,9 +87,7 @@
     "sqlite3": "^3.1.13",
     "tedious": "2.6.2",
     "uuid-validate": "^0.0.2",
-    "validate-commit-msg": "^2.12.2"
-  },
-  "optionalDependencies": {
+    "validate-commit-msg": "^2.12.2",
     "oracledb": "^2.2.0"
   },
   "keywords": [
