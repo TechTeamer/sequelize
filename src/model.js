@@ -1420,7 +1420,7 @@ class Model {
       })
     ).sort((index1, index2) => {
       if (this.sequelize.options.dialect === 'postgres') {
-        // move concurrent indexes to the bottom to avoid weird deadlocks
+      // move concurrent indexes to the bottom to avoid weird deadlocks
         if (index1.concurrently === true) return 1;
         if (index2.concurrently === true) return -1;
       }
