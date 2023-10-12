@@ -1412,12 +1412,22 @@ class Model {
 
     const existingIndexes = await this.queryInterface.showIndex(tableName, options);
     const missingIndexes = this._indexes.filter(item1 =>
-      !existingIndexes.some(item2 => item1.name === item2.name)
+      !existingIndexes.some(item2 => {
+        const comparableName1 = `${tableName}_${item1.fields.map(field => typeof field === 'string' ? field : field.name || field.attribute).join('_').toLowerCase()}`;
+        const comparableName2 = `${tableName}_${item2.fields.map(field => typeof field === 'string' ? field : field.name || field.attribute).join('_').toLowerCase()}`;
+
+        return comparableName1 === comparableName2;
+      })
     ).sort((index1, index2) => {
       if (this.sequelize.options.dialect === 'postgres') {
-      // move concurrent indexes to the bottom to avoid weird deadlocks
-        if (index1.concurrently === true) return 1;
-        if (index2.concurrently === true) return -1;
+        // move concurrent indexes to the bottom to avoid weird deadlocks
+        if (index1.concurrently === true) {
+          return 1;
+        }
+
+        if (index2.concurrently === true) {
+          return -1;
+        }
       }
 
       return 0;
