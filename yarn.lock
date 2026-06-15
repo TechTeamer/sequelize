@@ -1659,21 +1659,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sequelize/core@workspace:packages/core"
   dependencies:
-    "@types/chai": 4.3.5
-    "@types/chai-as-promised": 7.1.5
+    "@types/chai": 4.3.20
+    "@types/chai-as-promised": 7.1.8
     "@types/chai-datetime": 0.0.37
-    "@types/debug": ^4.1.7
-    "@types/ibm_db": 2.0.13
-    "@types/lodash": 4.14.197
-    "@types/mocha": 10.0.1
+    "@types/debug": ^4.1.13
+    "@types/ibm_db": 2.0.16
+    "@types/lodash": 4.17.24
+    "@types/mocha": 10.0.10
     "@types/pg": 8.10.2
-    "@types/semver": 7.5.0
-    "@types/sinon": 10.0.16
-    "@types/sinon-chai": 3.2.9
-    "@types/snowflake-sdk": 1.6.13
-    "@types/tedious": 4.0.9
-    "@types/uuid": 9.0.2
-    "@types/validator": ^13.7.5
+    "@types/semver": 7.7.1
+    "@types/sinon": 10.0.20
+    "@types/sinon-chai": 3.2.12
+    "@types/snowflake-sdk": 1.6.24
+    "@types/tedious": 4.0.14
+    "@types/uuid": 9.0.8
+    "@types/validator": ^13.15.10
     bnf-parser: 3.1.6
     chai: 4.3.7
     chai-as-promised: 7.1.1
@@ -1742,7 +1742,7 @@ __metadata:
   dependencies:
     "@ephys/eslint-config-typescript": 19.0.2
     "@rushstack/eslint-patch": 1.3.3
-    "@types/node": 20.5.0
+    "@types/node": 20.19.43
     chai: 4.3.7
     concurrently: 8.2.0
     cross-env: 7.0.3
@@ -1783,8 +1783,8 @@ __metadata:
   resolution: "@sequelize/validator.js@workspace:packages/validator-js"
   dependencies:
     "@sequelize/core": "workspace:*"
-    "@types/chai": 4.3.5
-    "@types/chai-as-promised": 7.1.5
+    "@types/chai": 4.3.20
+    "@types/chai-as-promised": 7.1.8
     chai: 4.3.7
     chai-as-promised: 7.1.1
     lodash: ^4.17.21
@@ -1971,12 +1971,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai-as-promised@npm:7.1.5":
-  version: 7.1.5
-  resolution: "@types/chai-as-promised@npm:7.1.5"
+"@types/chai-as-promised@npm:7.1.8":
+  version: 7.1.8
+  resolution: "@types/chai-as-promised@npm:7.1.8"
   dependencies:
     "@types/chai": "*"
-  checksum: 7c1345c6e32513d52d8e562ec173c23161648d6b792046525f18803a9932d7b3ad3dca8f0181e3c529ec42b106099f174e34edeb184d61dc93e32c98b5132fd4
+  checksum: f0e5eab451b91bc1e289ed89519faf6591932e8a28d2ec9bbe95826eb73d28fe43713633e0c18706f3baa560a7d97e7c7c20dc53ce639e5d75bac46b2a50bf21
   languageName: node
   linkType: hard
 
@@ -1999,14 +1999,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:4.3.5":
-  version: 4.3.5
-  resolution: "@types/chai@npm:4.3.5"
-  checksum: c8f26a88c6b5b53a3275c7f5ff8f107028e3cbb9ff26795fff5f3d9dea07106a54ce9e2dce5e40347f7c4cc35657900aaf0c83934a25a1ae12e61e0f5516e431
+"@types/chai@npm:4.3.20":
+  version: 4.3.20
+  resolution: "@types/chai@npm:4.3.20"
+  checksum: 7c5b0c9148f1a844a8d16cb1e16c64f2e7749cab2b8284155b9e494a6b34054846e22fb2b38df6b290f9bf57e6beebb2e121940c5896bc086ad7bab7ed429f06
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.1.12, @types/debug@npm:^4.1.7":
+"@types/debug@npm:^4.1.12, @types/debug@npm:^4.1.13":
   version: 4.1.13
   resolution: "@types/debug@npm:4.1.13"
   dependencies:
@@ -2029,10 +2029,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ibm_db@npm:2.0.13":
-  version: 2.0.13
-  resolution: "@types/ibm_db@npm:2.0.13"
-  checksum: 7036931c8bff5e643240069abf308ff297d5508c905786e62d6f953a5f507e558652260ef4dda5cd4f1424ddbc95253a8ff1c9ab092d2d9bc6f25f38916085eb
+"@types/ibm_db@npm:2.0.16":
+  version: 2.0.16
+  resolution: "@types/ibm_db@npm:2.0.16"
+  checksum: 1768b2e123dd81fc4405be3963c844aac1d9c4b8f9083056099eb93b027328175f3fc764ebca271a3fcc3b83f1a4e7d46cb5a3e143c4f8ce87ba6d3aa56dda15
   languageName: node
   linkType: hard
 
@@ -2050,14 +2050,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.14.197":
-  version: 4.14.197
-  resolution: "@types/lodash@npm:4.14.197"
-  checksum: 53d7567d1704de76cf33266c78062e0fd722d4b846e5b1417d0b6ef0ee41c0d9c451b92bc34f73d5f1fcc45c7d36511e92f6f47a9279b48157ba60a92ddaa078
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:^4.17.23":
+"@types/lodash@npm:4.17.24, @types/lodash@npm:^4.17.23":
   version: 4.17.24
   resolution: "@types/lodash@npm:4.17.24"
   checksum: 2b254973145ecdf9b052d83f00ebaa111245f319d45b217c78f81cea8892fda81180fc749bd50a99c08f4e5efceb834c774d3f74153a50a9c4a28648343dc9f3
@@ -2078,10 +2071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mocha@npm:10.0.1":
-  version: 10.0.1
-  resolution: "@types/mocha@npm:10.0.1"
-  checksum: 224ea9fce7b1734ccdb9aa99a622d902a538ce1847bca7fd22c5fb38adcf3ed536f50f48f587085db988a4bb3c2eb68f4b98e1cd6a38bc5547bd3bbbedc54495
+"@types/mocha@npm:10.0.10":
+  version: 10.0.10
+  resolution: "@types/mocha@npm:10.0.10"
+  checksum: 17a56add60a8cc8362d3c62cb6798be3f89f4b6ccd5b9abd12b46e31ff299be21ff2faebf5993de7e0099559f58ca5a3b49a505d302dfa5d65c5a4edfc089195
   languageName: node
   linkType: hard
 
@@ -2101,10 +2094,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.5.0":
-  version: 20.5.0
-  resolution: "@types/node@npm:20.5.0"
-  checksum: 659bc5fc93b5c02bd88ca4bfae4f6b9dc307d45884d1dd9d69df85819a9943cdc00cd3c87eec3048866df6a67f52297f74d170e47a44f61edb3e8f770d94e85e
+"@types/node@npm:20.19.43":
+  version: 20.19.43
+  resolution: "@types/node@npm:20.19.43"
+  dependencies:
+    undici-types: ~6.21.0
+  checksum: c959b5d256b073da95aa1892acb071b487c2f652f98b2cb75e92657d51b99bd691aa811023fb13acd6752bc1bcb75dc579db02190a4da70926cf6f372011bc4e
   languageName: node
   linkType: hard
 
@@ -2142,27 +2137,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:7.5.0":
-  version: 7.5.0
-  resolution: "@types/semver@npm:7.5.0"
-  checksum: 0a64b9b9c7424d9a467658b18dd70d1d781c2d6f033096a6e05762d20ebbad23c1b69b0083b0484722aabf35640b78ccc3de26368bcae1129c87e9df028a22e2
-  languageName: node
-  linkType: hard
-
-"@types/semver@npm:^7.3.12":
+"@types/semver@npm:7.7.1, @types/semver@npm:^7.3.12":
   version: 7.7.1
   resolution: "@types/semver@npm:7.7.1"
   checksum: 76d218e414482a398148d5c28f2bfa017108869f3fc18cda379c9d8d062348f8b9653ae2fa8642d3b5b52e211928fe8be34f22da4e1f08245c84e0e51e040673
   languageName: node
   linkType: hard
 
-"@types/sinon-chai@npm:3.2.9":
-  version: 3.2.9
-  resolution: "@types/sinon-chai@npm:3.2.9"
+"@types/sinon-chai@npm:3.2.12":
+  version: 3.2.12
+  resolution: "@types/sinon-chai@npm:3.2.12"
   dependencies:
     "@types/chai": "*"
     "@types/sinon": "*"
-  checksum: 3238ee2e3f64d0fc3e3d08a0d69f1edf062500e58814cbf9898ab6b28a8acfa01734069a431e7cff2b0890d8fa2782103b2c011b247520885a50f8928e395681
+  checksum: d906f2f766613534c5e9fe1437ec740fb6a9a550f02d1a0abe180c5f18fe73a99f0c12935195404d42f079f5f72a371e16b81e2aef963a6ef0ee0ed9d5d7f391
   languageName: node
   linkType: hard
 
@@ -2175,12 +2163,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sinon@npm:10.0.16":
-  version: 10.0.16
-  resolution: "@types/sinon@npm:10.0.16"
+"@types/sinon@npm:10.0.20":
+  version: 10.0.20
+  resolution: "@types/sinon@npm:10.0.20"
   dependencies:
     "@types/sinonjs__fake-timers": "*"
-  checksum: 1216aac584500d6bf845ca76f57e82f8459cf9de4ed80a55e50aa4438360fc418789a42181e211c5d279e97f86a3a994e3c81e43971d540737caca0193242bbf
+  checksum: 7322771345c202b90057f8112e0d34b7339e5ae1827fb1bfe385fc9e38ed6a2f18b4c66e88d27d98c775f7f74fb1167c0c14f61ca64155786534541e6c6eb05f
   languageName: node
   linkType: hard
 
@@ -2191,22 +2179,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/snowflake-sdk@npm:1.6.13":
-  version: 1.6.13
-  resolution: "@types/snowflake-sdk@npm:1.6.13"
+"@types/snowflake-sdk@npm:1.6.24":
+  version: 1.6.24
+  resolution: "@types/snowflake-sdk@npm:1.6.24"
   dependencies:
     "@types/node": "*"
     generic-pool: ^3.9.0
-  checksum: 1addf912bc932edbbad5cd61b76c8d4faa922d66062b0b27381a7ef0a4bf54cc8417b8d8b7139b62b9fd72ab862d2f8d1da4948bd274e117a6ff87d7db633a29
+  checksum: 7a1bf382ed440099d1673923d5209bb835c873d92dbcdc5bc6824c5294825b82ae02920de13d87610930256c0ff05cc6cfa86d78f50e8d008ddc0ed617479288
   languageName: node
   linkType: hard
 
-"@types/tedious@npm:4.0.9":
-  version: 4.0.9
-  resolution: "@types/tedious@npm:4.0.9"
+"@types/tedious@npm:4.0.14":
+  version: 4.0.14
+  resolution: "@types/tedious@npm:4.0.14"
   dependencies:
     "@types/node": "*"
-  checksum: 29d5416f5bd7aae23934a175b781f510cbfeced4c67fa7b3c795c8fef213e9f86d839b4a076220cbe2ce3850d0e894a56e89fe8407e87cf5a6309bcab89ff0f7
+  checksum: 88505dda8b8e57e1da58ce74fb29bc2b4d64d90e9c34dc1d4b4010116b9785e23ce43f1e8016901bd27037e17d9d148e34d4ebd5f57d060212847e0df91cf024
   languageName: node
   linkType: hard
 
@@ -2217,14 +2205,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.2":
-  version: 9.0.2
-  resolution: "@types/uuid@npm:9.0.2"
-  checksum: 1754bcf3444e1e3aeadd6e774fc328eb53bc956665e2e8fb6ec127aa8e1f43d9a224c3d22a9a6233dca8dd81a12dc7fed4d84b8876dd5ec82d40f574f7ff8b68
+"@types/uuid@npm:9.0.8":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b8c60b7ba8250356b5088302583d1704a4e1a13558d143c549c408bf8920535602ffc12394ede77f8a8083511b023704bc66d1345792714002bfa261b17c5275
   languageName: node
   linkType: hard
 
-"@types/validator@npm:^13.15.10, @types/validator@npm:^13.7.5":
+"@types/validator@npm:^13.15.10":
   version: 13.15.10
   resolution: "@types/validator@npm:13.15.10"
   checksum: 6a1964a617fdd9967d15e7ce1e6231255febe4e9fc2a6c381471b47a0f26d19b3309f0c15448cdeaf46e8f3d0e4baf49ed1181b2aef57b90ceace4f010eee2f3
@@ -13377,6 +13365,13 @@ __metadata:
   version: 1.13.8
   resolution: "underscore@npm:1.13.8"
   checksum: 52a165aa5e468cf64eb5117b9eb484d56c2102343eb67452ddb6edefa0ff2356afa0e41e30589d4f47005d473739fcb9cfcb6df3c0bca5c4ac19539b035a8ec2
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.21.0":
+  version: 6.21.0
+  resolution: "undici-types@npm:6.21.0"
+  checksum: 46331c7d6016bf85b3e8f20c159d62f5ae471aba1eb3dc52fff35a0259d58dcc7d592d4cc4f00c5f9243fa738a11cfa48bd20203040d4a9e6bc25e807fab7ab3
   languageName: node
   linkType: hard
 
