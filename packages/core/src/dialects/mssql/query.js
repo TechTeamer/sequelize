@@ -1,5 +1,3 @@
-'use strict';
-
 import { getAttributeName } from '../../utils/format';
 
 import forOwn from 'lodash/forOwn';
@@ -101,7 +99,6 @@ export class MsSqlQuery extends AbstractQuery {
 
       if (parameters) {
         if (Array.isArray(parameters)) {
-          // eslint-disable-next-line unicorn/no-for-loop
           for (let i = 0; i < parameters.length; i++) {
             const paramType = this.getSQLTypeFromJsType(parameters[i], connection.lib.TYPES);
             request.addParameter(String(i + 1), paramType.type, paramType.value, paramType.typeOptions);

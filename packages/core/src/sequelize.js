@@ -994,7 +994,7 @@ Use Sequelize#query if you wish to use replacements.`);
       options = last;
 
       // remove options from set of logged arguments if options.logging is equal to console.log or console.debug
-      // eslint-disable-next-line no-console -- intended console.log use
+       
       if (options.logging === console.log || options.logging === console.debug) {
         args.splice(-1, 1);
       }
