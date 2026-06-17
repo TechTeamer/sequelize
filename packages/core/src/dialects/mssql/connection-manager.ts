@@ -1,4 +1,4 @@
-import type { Connection as TediousConnection, ConnectionConfig as TediousConnectionConfig } from 'tedious';
+import type { Connection as TediousConnection, ConnectionConfiguration as TediousConnectionConfig } from 'tedious';
 import {
   AccessDeniedError,
   ConnectionError,
@@ -18,7 +18,6 @@ import type { MssqlDialect } from './index.js';
 const debug = logger.debugContext('connection:mssql');
 const debugTedious = logger.debugContext('connection:mssql:tedious');
 
-// TODO: once the code has been split into packages, we won't need to lazy load this anymore
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 type Lib = typeof import('tedious');
 
@@ -26,18 +25,20 @@ interface TediousConnectionState {
   name: string;
 }
 
-export interface MsSqlConnection extends Connection, TediousConnection {
-  // custom properties we attach to the connection
-  // TODO: replace with Symbols.
+/**
+ * Sequelize MSSQL connection wrapper (composition-based)
+ */
+export interface MsSqlConnection extends Connection {
   queue: AsyncQueue;
   lib: Lib;
 
-  // undeclared tedious properties
   closed: boolean;
   loggedIn: boolean;
+
   state: TediousConnectionState;
-  // on prototype
   STATE: Record<string, TediousConnectionState>;
+
+  raw: TediousConnection;
 }
 
 export class MsSqlConnectionManager extends AbstractConnectionManager<MsSqlConnection> {
@@ -64,7 +65,6 @@ export class MsSqlConnectionManager extends AbstractConnectionManager<MsSqlConne
     };
 
     if (config.dialectOptions) {
-      // only set port if no instance name was provided
       if (
         isPlainObject(config.dialectOptions.options)
         && config.dialectOptions.options.instanceName
@@ -80,65 +80,73 @@ export class MsSqlConnectionManager extends AbstractConnectionManager<MsSqlConne
     }
 
     const connectionConfig: TediousConnectionConfig = {
-      server: config.host,
+      server: config.host || '',
       authentication,
       options,
     };
 
     try {
-      return await new Promise((resolve, reject) => {
-        const connection: MsSqlConnection = new this.lib.Connection(connectionConfig) as MsSqlConnection;
-        if (connection.state === connection.STATE.INITIALIZED) {
-          connection.connect();
+      return await new Promise<MsSqlConnection>((resolve, reject) => {
+        // ✅ raw driver connection
+        const raw = new this.lib.Connection(connectionConfig);
+
+        const connection: MsSqlConnection = {
+          raw,
+          queue: new AsyncQueue(),
+          lib: this.lib,
+
+          closed: false,
+          loggedIn: false,
+
+          state: raw.state,
+          STATE: raw.STATE as unknown as Record<string, TediousConnectionState>,
+        } as MsSqlConnection;
+
+        if (raw.state === raw.STATE.INITIALIZED) {
+          raw.connect();
         }
 
-        connection.queue = new AsyncQueue();
-        connection.lib = this.lib;
-
         const connectHandler = (error: unknown) => {
-          connection.removeListener('end', endHandler);
-          connection.removeListener('error', errorHandler);
+          raw.removeListener('end', endHandler);
+          raw.removeListener('error', errorHandler);
 
           if (error) {
             return void reject(error);
           }
+
+          connection.loggedIn = true;
 
           debug('connection acquired');
           resolve(connection);
         };
 
         const endHandler = () => {
-          connection.removeListener('connect', connectHandler);
-          connection.removeListener('error', errorHandler);
+          raw.removeListener('connect', connectHandler);
+          raw.removeListener('error', errorHandler);
           reject(new Error('Connection was closed by remote server'));
         };
 
         const errorHandler = (error: unknown) => {
-          connection.removeListener('connect', connectHandler);
-          connection.removeListener('end', endHandler);
+          raw.removeListener('connect', connectHandler);
+          raw.removeListener('end', endHandler);
           reject(error);
         };
 
-        connection.once('error', errorHandler);
-        connection.once('end', endHandler);
-        connection.once('connect', connectHandler);
+        raw.once('error', errorHandler);
+        raw.once('end', endHandler);
+        raw.once('connect', connectHandler);
 
-        /*
-         * Permanently attach this event before connection is even acquired
-         * tedious sometime emits error even after connect(with error).
-         *
-         * If we dont attach this even that unexpected error event will crash node process
-         *
-         * E.g. connectTimeout is set higher than requestTimeout
-         */
-        connection.on('error', (error: unknown) => {
-          if (isErrorWithStringCode(error) && (error.code === 'ESOCKET' || error.code === 'ECONNRESET')) {
+        raw.on('error', (error: unknown) => {
+          if (
+            isErrorWithStringCode(error)
+            && (error.code === 'ESOCKET' || error.code === 'ECONNRESET')
+          ) {
             void this.pool.destroy(connection);
           }
         });
 
-        if (config.dialectOptions && config.dialectOptions.debug) {
-          connection.on('debug', debugTedious.log.bind(debugTedious));
+        if (config.dialectOptions?.debug) {
+          raw.on('debug', debugTedious.log.bind(debugTedious));
         }
       });
     } catch (error: unknown) {
@@ -183,7 +191,6 @@ export class MsSqlConnectionManager extends AbstractConnectionManager<MsSqlConne
   }
 
   async disconnect(connection: MsSqlConnection): Promise<void> {
-    // Don't disconnect a connection that is already disconnected
     if (connection.closed) {
       return;
     }
@@ -191,13 +198,17 @@ export class MsSqlConnectionManager extends AbstractConnectionManager<MsSqlConne
     connection.queue.close();
 
     await new Promise<void>(resolve => {
-      connection.on('end', resolve);
-      connection.close();
+      connection.raw.on('end', resolve);
+      connection.raw.close();
+      connection.closed = true;
       debug('connection closed');
     });
   }
 
   validate(connection: MsSqlConnection) {
-    return connection && (connection.loggedIn || connection.state.name === 'LoggedIn');
+    return (
+      connection
+      && (connection.loggedIn || connection.state?.name === 'LoggedIn')
+    );
   }
 }
