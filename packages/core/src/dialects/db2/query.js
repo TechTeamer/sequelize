@@ -111,7 +111,7 @@ export class Db2Query extends AbstractQuery {
       res = await this.#execute(stmt, params);
     } catch (error) {
       if (error.message) {
-        // eslint-disable-next-line no-ex-assign -- legacy code. TODO: reformat
+         
         error = this.filterSQLError(error, this.sql, connection);
         if (error === null) {
           stmt.closeSync();

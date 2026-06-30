@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint-disable unicorn/prefer-top-level-await */
+ 
 
 import childProcess from 'node:child_process';
 import fs from 'node:fs/promises';

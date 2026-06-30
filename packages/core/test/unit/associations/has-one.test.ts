@@ -66,6 +66,7 @@ describe(getTestDialectTeaser('hasOne'), () => {
     function originalFunction() {}
 
     each(methods, (alias, method) => {
+      // @ts-expect-error -- testing that invalid input results in error
       User.prototype[method] = originalFunction;
     });
 

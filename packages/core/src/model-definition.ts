@@ -917,7 +917,6 @@ export function mergeModelOptions(
           : [existingHooks[hookType]];
 
         if (!Array.isArray(optionValue[hookType])) {
-          // @ts-expect-error -- typescript doesn't like this merge algorithm.
           existingHooks[hookType] = [...existingHooksOfType, optionValue[hookType]];
         } else {
           existingHooks[hookType] = [...existingHooksOfType, ...optionValue[hookType]];

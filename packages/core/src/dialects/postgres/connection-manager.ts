@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import pick from 'lodash/pick';
-import type { Client, ClientConfig } from 'pg';
-import type { TypeId, TypeParser } from 'pg-types';
+import type { Client, ClientConfig, DatabaseError } from 'pg';
+import type { TypeId, getTypeParser } from 'pg-types';
 import semver from 'semver';
 import {
   ConnectionError,
@@ -18,6 +18,8 @@ import { logger } from '../../utils/logger';
 import type { Connection } from '../abstract/connection-manager';
 import { AbstractConnectionManager } from '../abstract/connection-manager';
 import type { PostgresDialect } from './index.js';
+
+type TypeParser = ReturnType<typeof getTypeParser>;
 
 const debug = logger.debugContext('connection:pg');
 
@@ -55,7 +57,7 @@ export class PostgresConnectionManager extends AbstractConnectionManager<PgConne
   readonly #arrayParserLib: ArrayParserLib;
 
   #oidMap = new Map<number, TypeOids>();
-  #oidParserCache = new Map<number, TypeParser<any, any>>();
+  #oidParserCache = new Map<number, TypeParser>();
 
   constructor(dialect: PostgresDialect, sequelize: Sequelize) {
     super(dialect, sequelize);
@@ -153,23 +155,19 @@ export class PostgresConnectionManager extends AbstractConnectionManager<PgConne
 
       if (!this.sequelize.config.native) {
         // Receive various server parameters for further configuration
-        // @ts-expect-error -- undeclared type
         connection.connection.on('parameterStatus', parameterHandler);
       }
 
-      connection.connect(err => {
+      connection.connect((err: DatabaseError | null) => {
         responded = true;
 
         if (!this.sequelize.config.native) {
           // remove parameter handler
-          // @ts-expect-error -- undeclared type
           connection.connection.removeListener('parameterStatus', parameterHandler);
         }
 
         if (err) {
-          // @ts-expect-error -- undeclared type
           if (err.code) {
-            // @ts-expect-error -- undeclared type
             switch (err.code) {
               case 'ECONNREFUSED':
                 reject(new ConnectionRefusedError(err));
@@ -347,7 +345,7 @@ export class PostgresConnectionManager extends AbstractConnectionManager<PgConne
     };
   }
 
-  getTypeParser(oid: TypeId, format?: TypeFormat): TypeParser<any, any> {
+  getTypeParser(oid: TypeId, format?: TypeFormat): TypeParser {
     const cachedParser = this.#oidParserCache.get(oid);
 
     if (cachedParser) {
@@ -361,11 +359,10 @@ export class PostgresConnectionManager extends AbstractConnectionManager<PgConne
       return customParser;
     }
 
-    // @ts-expect-error -- pg did not provide a broadly-typed version of getTypeParser. The typing boilerplate is not worth the result.
     return this.lib.types.getTypeParser(oid, format);
   }
 
-  #getCustomTypeParser(oid: TypeId, format?: TypeFormat): TypeParser<any, any> | null {
+  #getCustomTypeParser(oid: TypeId, format?: TypeFormat): TypeParser | null {
     const typeData = this.#oidMap.get(oid);
 
     if (!typeData) {

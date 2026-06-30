@@ -76,8 +76,8 @@ describe('[MSSQL Specific] Query Queue', () => {
     let promise;
 
     await expect(sequelize.transaction(async transaction => {
-      const wrappedExecSql = transaction.getConnection().execSql;
-      transaction.getConnection().execSql = async function execSql(...args) {
+      const wrappedExecSql = transaction.getConnection().raw.execSql;
+      transaction.getConnection().raw.execSql = async function execSql(...args) {
         await sequelize.dialect.connectionManager.disconnect(transaction.getConnection());
 
         return wrappedExecSql.call(this, ...args);

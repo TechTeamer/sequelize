@@ -408,6 +408,7 @@ Add your own primary key to the through model, on different attributes than the 
       BelongsToMany<S, T, ThroughModel, SourceKey, TargetKey>,
       BelongsToManyOptions<SourceKey, TargetKey, ThroughModel>,
       NormalizedBelongsToManyOptions<SourceKey, TargetKey, ThroughModel>
+        // @ts-expect-error -- runtime type checking is enforced by model
     >(BelongsToMany, source, target, options, parent, normalizeOptions, newOptions => {
       // self-associations must always set their 'as' parameter
       if (isSameInitialModel(source, target)

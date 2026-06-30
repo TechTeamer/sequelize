@@ -38,13 +38,13 @@
   },
   "dependencies": {
     "@sequelize/core": "workspace:*",
-    "lodash": "^4.17.21"
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
-    "@types/chai": "4.3.5",
-    "@types/chai-as-promised": "7.1.5",
-    "chai": "4.3.7",
-    "chai-as-promised": "7.1.1",
-    "mocha": "10.2.0"
+    "@types/chai": "5.2.3",
+    "@types/chai-as-promised": "8.0.2",
+    "chai": "6.2.2",
+    "chai-as-promised": "8.0.2",
+    "mocha": "11.7.6"
   }
 }
