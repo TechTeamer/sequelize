@@ -37,6 +37,7 @@ describe(getTestDialectTeaser('belongsTo'), () => {
     const initialMethod = function wrapper() {};
 
     each(methods, (alias, method) => {
+      // @ts-expect-error -- testing that invalid input results in error
       User.prototype[method] = initialMethod;
     });
 

@@ -1248,14 +1248,14 @@ describe('DataTypes', () => {
     });
 
     it('serialize/deserializes buffers', async () => {
-      await testSimpleInOut(vars.User, 'attr', Buffer.from('abc'), Buffer.from([97, 98, 99]));
+      await testSimpleInOut(vars.User, 'attr', Buffer.from('abc').buffer, Buffer.from([97, 98, 99]).buffer);
     });
 
     it('accepts ArrayBuffers & Uint8Arrays', async () => {
       // Uint8Arrays
-      await testSimpleInOut(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]), Buffer.from([49, 50, 51, 52]));
+      await testSimpleInOut(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]).buffer, Buffer.from([49, 50, 51, 52]).buffer);
       // ArrayBuffer
-      await testSimpleInOut(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]).buffer, Buffer.from([49, 50, 51, 52]));
+      await testSimpleInOut(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]).buffer, Buffer.from([49, 50, 51, 52]).buffer);
     });
 
     // Node 14 doesn't support Blob
@@ -1266,17 +1266,17 @@ describe('DataTypes', () => {
         })).to.be.rejectedWith(ValidationError, 'Validation error: Blob instances are not supported values, because reading their data is an async operation. Call blob.arrayBuffer() to get a buffer, and pass that to Sequelize instead.');
 
         await expect(vars.User.create({
-          attr: new Uint16Array([49, 50, 51, 52]),
+          attr: new Uint16Array([49, 50, 51, 52]).buffer,
         })).to.be.rejectedWith(ValidationError, 'Validation error: Uint16Array(4) [ 49, 50, 51, 52 ] is not a valid binary value: Only strings, Buffer, Uint8Array and ArrayBuffer are supported.');
       });
     }
 
     it('accepts strings', async () => {
-      await testSimpleInOut(vars.User, 'attr', 'abc', Buffer.from([97, 98, 99]));
+      await testSimpleInOut(vars.User, 'attr', 'abc', Buffer.from([97, 98, 99]).buffer);
     });
 
     it(`is deserialized as a Buffer when DataType is not specified`, async () => {
-      await testSimpleInOutRaw(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]), Buffer.from([49, 50, 51, 52]));
+      await testSimpleInOutRaw(vars.User, 'attr', new Uint8Array([49, 50, 51, 52]).buffer, Buffer.from([49, 50, 51, 52]).buffer);
     });
   });
 

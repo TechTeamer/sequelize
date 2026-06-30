@@ -116,7 +116,7 @@ export class MsSqlQuery extends AbstractQuery {
         rows.push(columns);
       });
 
-      connection.execSql(request);
+      connection.raw.execSql(request);
     });
 
     let rows;

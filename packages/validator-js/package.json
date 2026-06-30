@@ -45,6 +45,6 @@
     "@types/chai-as-promised": "8.0.2",
     "chai": "6.2.2",
     "chai-as-promised": "8.0.2",
-    "mocha": "10.2.0"
+    "mocha": "11.7.6"
   }
 }

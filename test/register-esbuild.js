@@ -27,19 +27,25 @@ function installSourceMapSupport() {
 
 function compileFor(loader) {
   return (source, sourcefile) => {
+    console.log('HOOK HIT:', sourcefile);
     const { code, map } = esbuild.transformSync(source, {
       sourcemap: true,
       target: 'node16',
       format: 'cjs',
+      platform: 'node',
       sourcefile,
       loader,
       tsconfigRaw: {
         compilerOptions: {
           target: 'node16',
-          useDefineForClassFields: true,
+          module: 'CommonJS',
+          moduleResolution: 'node',
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          useDefineForClassFields: true
         },
       },
-    });
+    })
 
     if (Object.keys(maps).length === 0) {
       installSourceMapSupport();

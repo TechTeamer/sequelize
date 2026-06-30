@@ -1,4 +1,6 @@
-import { expect } from 'chai';
+const chai = require('chai');
+
+const expect = chai.expect;
 import each from 'lodash/each';
 import type { SinonStub } from 'sinon';
 import sinon from 'sinon';
@@ -88,6 +90,7 @@ describe(getTestDialectTeaser('belongsToMany'), () => {
     function originalMethod() {}
 
     each(methods, (alias, method) => {
+      // @ts-expect-error -- dynamic type, not worth typing
       User.prototype[method] = originalMethod;
     });
 
@@ -751,10 +754,12 @@ describe(getTestDialectTeaser('belongsToMany'), () => {
     });
 
     it('should work for belongsTo associations defined before belongsToMany', () => {
+      // @ts-expect-error -- dynamic type, not worth typing
       expect(UserProjects.prototype.getUser).to.be.ok;
     });
 
     it('should work for belongsTo associations defined after belongsToMany', () => {
+      // @ts-expect-error -- dynamic type, not worth typing
       expect(UserProjects.prototype.getProject).to.be.ok;
     });
   });
